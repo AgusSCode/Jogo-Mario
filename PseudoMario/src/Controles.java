@@ -88,7 +88,8 @@ public class Controles implements KeyListener {
     }
 
     private boolean puedeMoverse(int nuevaX, int y) {
-      
+    	
+    	    
         // Verificar colisiones con los bordes laterales del mapa
         if (nuevaX < 0 || nuevaX + player.getWidth() > bloques.getNumBlocks() * bloques.getBlockSize()) {
             return false;
