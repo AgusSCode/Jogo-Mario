@@ -3,16 +3,19 @@ import java.awt.event.KeyListener;
 
 public class Controles implements KeyListener {
     private Player player;
+    private Bloques bloques;
     private boolean izquierdaPresionada = false;
     private boolean derechaPresionada = false;
     private boolean saltando = false;
     private boolean enAire = false;
     private int alturaInicial;
     private final int alturaMaxima = 100;
+    
     private final int velocidadCaida = 3;
 
-    public Controles(Player player) {
+    public Controles(Player player, Bloques bloques) {
         this.player = player;
+        this.bloques = bloques;
     }
 
     @Override
@@ -54,10 +57,16 @@ public class Controles implements KeyListener {
     public void actualizarMovimiento() {
         // Manejar el movimiento lateral
         if (izquierdaPresionada) {
-            player.moverIzquierda();
+            int nuevaX = player.getX() - player.getVelocidad();
+            if (puedeMoverse(nuevaX, player.getY())) {
+                player.moverIzquierda();
+            }
         }
         if (derechaPresionada) {
-            player.moverDerecha();
+            int nuevaX = player.getX() + player.getVelocidad();
+            if (puedeMoverse(nuevaX, player.getY())) {
+                player.moverDerecha();
+            }
         }
 
         // Manejar el salto y la caída
@@ -76,5 +85,14 @@ public class Controles implements KeyListener {
                 player.setY(alturaInicial);
             }
         }
+    }
+
+    private boolean puedeMoverse(int nuevaX, int y) {
+      
+        // Verificar colisiones con los bordes laterales del mapa
+        if (nuevaX < 0 || nuevaX + player.getWidth() > bloques.getNumBlocks() * bloques.getBlockSize()) {
+            return false;
+        }
+        return true;
     }
 }

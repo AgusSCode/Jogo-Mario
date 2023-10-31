@@ -5,13 +5,16 @@ public class Player {
     private int velocidad = 5;
 
     public Player() {
+        // Establecer la velocidad del jugador al crearlo
         x = 50;
         y = 400;
         width = 50;
         height = 50;
     }
 
-    public void moverDerecha() {
+    
+
+	public void moverDerecha() {
         x += velocidad;
     }
 
@@ -31,9 +34,19 @@ public class Player {
         y = newY;
     }
 
-    public void dibujarPlayer(Graphics g) {
+    public void dibujarPlayer(Graphics g, int cameraX) {
         g.setColor(Color.RED);
-        g.fillRect(x, y, width, height);
+        // Dibuja al jugador teniendo en cuenta la posición de la cámara
+        g.fillRect(x - cameraX, y, width, height);
+    }
+    public int getVelocidad() {
+        return velocidad;
+    }
+    public int getHeight() {
+        return height;
+    }
+    public int getWidth() {
+        return width;
     }
 
     public Rectangle getBounds() {

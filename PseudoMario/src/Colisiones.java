@@ -16,4 +16,4 @@ public class Colisiones {
         // No hay colisión con ningún bloque
         return false;
     }
-}
+} 
