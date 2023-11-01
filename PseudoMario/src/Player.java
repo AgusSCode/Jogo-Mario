@@ -34,6 +34,10 @@ public class Player {
         y = newY;
     }
 
+    public void setX(int newX) {
+        x = newX;
+    }
+    
     public void dibujarPlayer(Graphics g, int cameraX) {
         g.setColor(Color.RED);
         // Dibuja al jugador teniendo en cuenta la posición de la cámara

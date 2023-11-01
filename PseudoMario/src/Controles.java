@@ -86,6 +86,12 @@ public class Controles implements KeyListener {
             }
         }
     }
+    public boolean isEnAire() {
+        return enAire;
+    }
+    
+   
+    
 
     private boolean puedeMoverse(int nuevaX, int y) {
     	

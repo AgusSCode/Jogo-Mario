@@ -5,7 +5,7 @@ public class Bloques {
     private int blockSize = 50;
     private int numBlocks = 32;
     private boolean[] bloqueAtravesable;
-    private int elevatedBlockHeight = 100; // Altura del bloque elevado
+
 
     public Bloques() {
         // Inicializa los bloques como no atravesables por defecto

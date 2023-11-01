@@ -2,42 +2,42 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Juego extends JPanel {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 7461897230133563467L;
-	private Player player;
+    private Player player;
     private Bloques bloques;
     private Controles controles;
+    private Fondo fondo;
     private int cameraX; // Variable para almacenar la posición de la cámara en el eje X
+    private Image fondoImage;
+    public static final int ANCHO_VENTANA = 800;
+    public static final int ALTO_VENTANA = 736;
 
     public Juego() {
-    	 player = new Player(); // 5 es un ejemplo, ajusta este valor según la velocidad que desees
-         bloques = new Bloques();
-         controles = new Controles(player, bloques);
-         this.addKeyListener(controles);
-         this.setFocusable(true);
-         cameraX = 0;
+        player = new Player();
+        bloques = new Bloques();
+        controles = new Controles(player, bloques);
+        this.addKeyListener(controles);
+        this.setFocusable(true);
+        cameraX = 0;
+        
+        ImageIcon img = new ImageIcon("media/fondo.png");
+        Image Scaledimg = img.getImage().getScaledInstance(1600, 736, Image.SCALE_SMOOTH);
+        ImageIcon ScaledimgToIcon = new ImageIcon(Scaledimg);
+        fondo = new Fondo(ScaledimgToIcon.getImage(), 1600, ANCHO_VENTANA);
     }
 
     @Override
     public void paintComponent(Graphics g) {
-    	
         super.paintComponent(g);
-        g.setColor(Color.CYAN);
-        g.fillRect(0, 0, getWidth(), getHeight());
-        // Dibuja los bloques teniendo en cuenta la posición de la cámara
+        fondo.dibujarFondo(g);
         bloques.dibujarBloques(g, cameraX);
-        // Dibuja el jugador teniendo en cuenta la posición de la cámara
         player.dibujarPlayer(g, cameraX);
     }
 
     public void actualizar() {
         controles.actualizarMovimiento();
-        // Actualiza la posición de la cámara para que siga al jugador
         cameraX = player.getX() - getWidth() / 2;
-        // Limita la posición de la cámara para que no se salga de los límites del mapa
         cameraX = Math.max(0, Math.min(bloques.getNumBlocks() * bloques.getBlockSize() - getWidth(), cameraX));
+        fondo.actualizar(cameraX, player.getX());
     }
 
     public static void main(String[] args) {
@@ -45,7 +45,8 @@ public class Juego extends JPanel {
         Juego juego = new Juego();
         frame.add(juego);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
+        frame.setSize(800, 736);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
         while (true) {
