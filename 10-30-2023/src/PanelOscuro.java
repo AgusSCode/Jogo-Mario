@@ -1,4 +1,4 @@
-import javax.swing.*;
+/*import javax.swing.*;
 import java.awt.*;
 
 public class PanelOscuro {
@@ -38,3 +38,4 @@ public class PanelOscuro {
         frame.setVisible(true);
     }
 }
+*/
